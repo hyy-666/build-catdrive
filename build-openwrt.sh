@@ -6,7 +6,6 @@ set -e
 set -o pipefail
 
 os="openwrt"
-rootsize=$((`stat $OPENWRT -c %s`/1024/1024))
 origin="base-arm64"
 target="catdrive"
 
@@ -27,16 +26,16 @@ func_generate()) {
 	local rootfs_rescue=$2
 	img_name=$(gen_new_name $rootfs)
 	if [ "$BUILD_RESCUE" = "y" ]; then
-		offset=$(sfdisk -J $tmpdir/$DISK |jq .partitiontable.partitions[0].start)
+		offset=$(sfdisk -J $rootfs |jq .partitiontable.partitions[0].start)
 		mkdir -p $rootfs_mount_point
-		mount -o loop,offset=$((offset*512)) $tmpdir/$DISK $rootfs_mount_point
+		mount -o loop,offset=$((offset*512)) $rootfs $rootfs_mount_point
 		tar -cJpf ./tools/rescue/rescue-${img_name}.tar.xz -C $rootfs_mount_point .
 		umount -l $rootfs_mount_point
 	else
 		[ ! -f $rootfs_rescue ] && echo "rescue rootfs not found!" && return 1
 
 		# calc size
-		img_size=$((`stat $tmpdir/$DISK -c %s`/1024/1024))
+		img_size=$((`stat $rootfs-c %s`/1024/1024))
 		img_size=$((img_size+300))
 
 		echo "create mbr rescue img, size: ${img_size}M"
