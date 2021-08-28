@@ -21,7 +21,7 @@ gen_new_name() {
 	local rootfs=$1
 	echo "`basename $rootfs | sed "s/${origin}/${target}/" | sed 's/.tar.gz$//'`"
 }
-func_generate()) {
+func_generate() {
 	local rootfs=$1
 	local rootfs_rescue=$2
 	img_name=$(gen_new_name $rootfs)
