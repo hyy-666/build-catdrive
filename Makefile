@@ -6,11 +6,12 @@ DTB_URL := $(KERNEL_BSP)/$(RELEASE_TAG)/$(DTB)
 KERNEL_URL := $(KERNEL_BSP)/$(RELEASE_TAG)/Image
 KMOD_URL := $(KERNEL_BSP)/$(RELEASE_TAG)/modules.tar.xz
 
-TARGETS := debian archlinux alpine ubuntu
+TARGETS := debian archlinux alpine ubuntu openwrt
 
 DL := dl
 DL_KERNEL := $(DL)/kernel/$(RELEASE_TAG)
 OUTPUT := output
+OPENWRT := openwrt-mvebu-cortexa53-catdrive_catdrive-squashfs-sdcard.img
 
 CURL := curl -O -L
 download = ( mkdir -p $(1) && cd $(1) ; $(CURL) $(2) )
@@ -118,3 +119,10 @@ else
 debian:
 endif
 debian_clean:
+
+ifeq ($(build_openwrt),y)
+openwrt:
+	sudo ./build-openwrt.sh release $(OPENWRT) $(RESCUE_ROOTFS)
+else
+openwrt:
+endif
