@@ -24,7 +24,7 @@ gen_new_name() {
 func_generate() {
 	local rootfs=$1
 	local rootfs_rescue=$2
-	img_name=$(gen_new_name $rootfs)
+	img_name=$(gen_new_name $os)
 	if [ "$BUILD_RESCUE" = "y" ]; then
 		offset=$(sfdisk -J $rootfs |jq .partitiontable.partitions[0].start)
 		mkdir -p $rootfs_mount_point
