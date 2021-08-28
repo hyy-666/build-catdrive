@@ -85,7 +85,6 @@ func_generate()) {
 
 	echo "release ${os} image done"
 }
-}
 
 case "$1" in
 generate)
