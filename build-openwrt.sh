@@ -35,7 +35,7 @@ func_generate() {
 		[ ! -f $rootfs_rescue ] && echo "rescue rootfs not found!" && return 1
 
 		# calc size
-		img_size=$((`stat $rootfs-c %s`/1024/1024))
+		img_size=$((`stat $rootfs -c %s`/1024/1024))
 		img_size=$((img_size+300))
 
 		echo "create mbr rescue img, size: ${img_size}M"
