@@ -65,7 +65,7 @@ func_generate() {
 		echo "rootdev=PARTUUID=${PTUUID}-01" >> $rootfs_mount_point/boot/uEnv.txt
 
 		echo "add ${os} img to rescue rootfs"
-		mv -f rootfs $rootfs_mount_point/root/rootfs.img
+		cp -f rootfs $rootfs_mount_point/root/rootfs.img
 
 		umount -l $rootfs_mount_point
 		losetup -d $lodev
