@@ -25,6 +25,7 @@ func_generate() {
 	local rootfs=$1
 	local rootfs_rescue=$2
 	img_name=$(gen_new_name $os)
+	mkdir -vp ${tmpdir}
 	if [ "$BUILD_RESCUE" = "y" ]; then
 		offset=$(sfdisk -J $rootfs |jq .partitiontable.partitions[0].start)
 		mkdir -p $rootfs_mount_point
@@ -37,7 +38,6 @@ func_generate() {
 		# calc size
 		img_size=$((`stat $rootfs -c %s`/1024/1024))
 		img_size=$((img_size+300))
-
 		echo "create mbr rescue img, size: ${img_size}M"
 		dd if=/dev/zero bs=1M status=none conv=fsync count=$img_size of=$tmpdir/${img_name}.img
 		parted -s $tmpdir/${img_name}.img -- mktable msdos
