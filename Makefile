@@ -122,7 +122,7 @@ debian_clean:
 
 ifeq ($(build_openwrt),y)
 openwrt:
-	sudo ./build-openwrt.sh release $(OPENWRT) $(RESCUE_ROOTFS)
+	sudo ./build-openwrt.sh generate $(OPENWRT) $(RESCUE_ROOTFS)
 else
 openwrt:
 endif
