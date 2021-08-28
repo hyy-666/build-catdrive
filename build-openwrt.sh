@@ -6,7 +6,7 @@ set -e
 set -o pipefail
 
 os="openwrt"
-rootsize=$((`stat $(OPENWRT) -c %s`/1024/1024))
+rootsize=$((`stat $OPENWRT -c %s`/1024/1024))
 origin="base-arm64"
 target="catdrive"
 
