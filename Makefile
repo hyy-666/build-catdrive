@@ -121,7 +121,7 @@ endif
 debian_clean:
 
 ifeq ($(build_openwrt),y)
-openwrt:
+openwrt: $(RESCUE_ROOTFS)
 	sudo ./build-openwrt.sh generate $(OPENWRT) $(RESCUE_ROOTFS)
 else
 openwrt:
